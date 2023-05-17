@@ -54,6 +54,7 @@ class Login extends Component {
                 name="userName"
               />
               <button
+                type="button"
                 data-testid="login-submit-button"
                 onClick={ this.createNameUser }
                 disabled={ userName.length < charUser }
