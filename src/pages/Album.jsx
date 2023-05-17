@@ -3,7 +3,9 @@ import { Component } from 'react';
 class Album extends Component {
   render() {
     return (
-      <h1 data-testid="page-album">Album</h1>
+      <div data-testid="page-album">
+        <h1>Album</h1>
+      </div>
     );
   }
 }
