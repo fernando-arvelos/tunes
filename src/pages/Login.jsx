@@ -49,7 +49,7 @@ class Login extends Component {
               <textarea
                 data-testid="login-name-input"
                 className="name-login"
-                placeholder="Nome"
+                placeholder="Qual é o seu nome?"
                 onChange={ this.handleChange }
                 name="userName"
               />
