@@ -1,3 +1,8 @@
 .search-artist {
   resize: none;
 }
+
+.list-album {
+  display: flex;
+  flex-wrap: wrap;
+}
