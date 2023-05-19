@@ -102,10 +102,16 @@ class Search extends Component {
                     <Link
                       key={ index }
                       data-testid={ `link-to-album-${album.collectionId}` }
-                      to={ `/album/${album.collectionId}` }
+                      to={ {
+                        pathname: `/album/${album.collectionId}`,
+                        state: { resultArtist: albums },
+                      } }
                     >
                       <ul>
-                        <img src={ album.artworkUrl100 } alt="algum" />
+                        <img
+                          src={ album.artworkUrl100 }
+                          alt={ `Imagem da capa do álbum ${album.collectionName}` }
+                        />
                         <li>{album.collectionName}</li>
                         <li>{album.artistName}</li>
                       </ul>
