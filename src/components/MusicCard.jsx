@@ -2,7 +2,7 @@ import { Component } from 'react';
 import { shape, string } from 'prop-types';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import '../css/MusicCard.css';
-import { addSong, getFavoriteSongs } from '../services/favoriteSongsAPI';
+import { addSong, getFavoriteSongs, removeSong } from '../services/favoriteSongsAPI';
 import Loading from './Loading';
 
 class MusicCard extends Component {
@@ -28,6 +28,8 @@ class MusicCard extends Component {
 
     if (target.checked) {
       await addSong(music);
+    } else {
+      await removeSong(music);
     }
 
     this.setState({
