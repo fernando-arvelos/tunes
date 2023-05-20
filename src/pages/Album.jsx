@@ -41,7 +41,14 @@ class Album extends Component {
         <h3 data-testid="album-name">{ infoAlbum.collectionName}</h3>
         <p data-testid="artist-name">{ infoAlbum.artistName}</p>
         <div>
-          <MusicCard musics={ musics } />
+          {
+            musics.map((music) => (
+              <MusicCard
+                key={ music.trackId }
+                music={ music }
+              />
+            ))
+          }
         </div>
       </>
     );
