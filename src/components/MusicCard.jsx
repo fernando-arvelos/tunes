@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { checkPropTypes } from 'prop-types';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import '../css/MusicCard.css';
 import { addSong, getFavoriteSongs, removeSong } from '../services/favoriteSongsAPI';
@@ -109,14 +109,18 @@ class MusicCard extends Component {
 export default MusicCard;
 
 MusicCard.defaultProps = {
-  onRemoveSong: PropTypes.func,
+  onRemoveSong: () => {},
 };
 
 MusicCard.propTypes = {
+  // eslint-disable-next-line react/require-default-props
   music: PropTypes.shape({
     trackName: PropTypes.string,
     previewUrl: PropTypes.string,
     trackId: PropTypes.number,
-  }).isRequired,
+  }),
   onRemoveSong: PropTypes.func,
 };
+
+// eslint-disable-next-line react/forbid-foreign-prop-types
+checkPropTypes(MusicCard.propTypes, 'props', 'MusicCard');

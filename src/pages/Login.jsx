@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import '../css/Login.css';
-import { func, shape } from 'prop-types';
+import PropTypes from 'prop-types';
 import { createUser } from '../services/userAPI';
 import Loading from '../components/Loading';
 
@@ -70,7 +70,7 @@ class Login extends Component {
 export default Login;
 
 Login.propTypes = {
-  history: shape({
-    push: func,
+  history: PropTypes.shape({
+    push: PropTypes.func,
   }).isRequired,
 };
