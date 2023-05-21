@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { shape, string } from 'prop-types';
+import PropTypes from 'prop-types';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import '../css/MusicCard.css';
 import { addSong, getFavoriteSongs, removeSong } from '../services/favoriteSongsAPI';
@@ -20,7 +20,7 @@ class MusicCard extends Component {
   }
 
   handleChange = async ({ target }) => {
-    const { music } = this.props;
+    const { music, onRemoveSong } = this.props;
     this.setState({
       isChecked: target.checked,
       isLoading: true,
@@ -30,6 +30,7 @@ class MusicCard extends Component {
       await addSong(music);
     } else {
       await removeSong(music);
+      await onRemoveSong(music);
     }
 
     this.setState({
@@ -48,13 +49,14 @@ class MusicCard extends Component {
   render() {
     const { music } = this.props;
     const { isChecked, isLoading } = this.state;
+    const { trackName, previewUrl, trackId } = music;
     return (
 
       <div className="player-music">
-        <p>{music.trackName}</p>
+        <p>{trackName}</p>
         <audio
           data-testid="audio-component"
-          src={ music.previewUrl }
+          src={ previewUrl }
           controls
         >
           <track kind="captions" />
@@ -64,19 +66,19 @@ class MusicCard extends Component {
           .
         </audio>
 
-        <label
-          htmlFor={ music.trackId }
-          data-testid={ `checkbox-music-${music.trackId}` }
-        >
-          <input
-            type="checkbox"
-            id={ music.trackId }
-            checked={ isChecked }
-            onChange={ (event) => this.handleChange(event) }
-          />
-          {isLoading
-            ? <Loading />
-            : (
+        {isLoading
+          ? <Loading />
+          : (
+            <label
+              htmlFor={ `fav-${trackId}` }
+            >
+              <input
+                type="checkbox"
+                id={ `fav-${trackId}` }
+                data-testid={ `checkbox-music-${trackId}` }
+                checked={ isChecked }
+                onChange={ (event) => this.handleChange(event) }
+              />
               <p>
                 {
                   isChecked
@@ -94,8 +96,9 @@ class MusicCard extends Component {
                     )
                 }
               </p>
-            )}
-        </label>
+              <span style={ { display: 'none' } }>Favorita</span>
+            </label>
+          )}
 
       </div>
 
@@ -105,9 +108,15 @@ class MusicCard extends Component {
 
 export default MusicCard;
 
+MusicCard.defaultProps = {
+  onRemoveSong: PropTypes.func,
+};
+
 MusicCard.propTypes = {
-  music: shape({
-    trackName: string,
-    previewUrl: string,
+  music: PropTypes.shape({
+    trackName: PropTypes.string,
+    previewUrl: PropTypes.string,
+    trackId: PropTypes.number,
   }).isRequired,
-}.isRequired;
+  onRemoveSong: PropTypes.func,
+};
