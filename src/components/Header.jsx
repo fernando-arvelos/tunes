@@ -27,15 +27,16 @@ class Header extends Component {
   render() {
     const { nameUser, loading } = this.state;
     return (
-      loading
-        ? <Loading />
-        : (
-          <header data-testid="header-component">
-            <Link data-testid="link-to-search" to="/search">Pesquisa</Link>
-            <Link data-testid="link-to-favorites" to="/favorites">Favoritas</Link>
-            <Link data-testid="link-to-profile" to="/profile">Perfil</Link>
-            <p data-testid="header-user-name">{ nameUser }</p>
-          </header>)
+      <header data-testid="header-component">
+        <Link data-testid="link-to-search" to="/search">Pesquisa</Link>
+        <Link data-testid="link-to-favorites" to="/favorites">Favoritas</Link>
+        <Link data-testid="link-to-profile" to="/profile">Perfil</Link>
+        {loading ? (
+          <Loading />
+        ) : (
+          <p data-testid="header-user-name">{nameUser}</p>
+        )}
+      </header>
     );
   }
 }
