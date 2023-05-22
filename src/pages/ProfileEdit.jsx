@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { isEmail } from 'validator'; // Importar isEmail do validator
+import PropTypes from 'prop-types';
 import { getUser, updateUser } from '../services/userAPI';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
@@ -154,3 +155,9 @@ class ProfileEdit extends Component {
 }
 
 export default ProfileEdit;
+
+ProfileEdit.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+};
